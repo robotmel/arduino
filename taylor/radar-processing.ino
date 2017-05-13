@@ -17,7 +17,7 @@ void setup() {
   
  size (1440, 810); // ***УСТАНОВКА РАЗРЕШЕНИЯ ЭКРАНА***
  smooth();
- myPort = new Serial(this,"/dev/ttyUSB0", 9600); // ***УСТАНОВКА СЕРИЙНОГО ПОРТА***
+ myPort = new Serial(this,"/dev/ttyUSB0", 115200); // ***УСТАНОВКА СЕРИЙНОГО ПОРТА***
  myPort.bufferUntil('.');
  orcFont = loadFont("Ubuntu-48.vlw");
 }

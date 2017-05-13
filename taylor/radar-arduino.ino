@@ -1,34 +1,45 @@
 #include <Servo.h>
+#include <NewPing.h>
+/* LIBRARIES
+NewPing: http://playground.arduino.cc/Code/NewPing
+*/
 
-const int trigPin = 10;
-const int echoPin = 11;
-long duration;
+#define TRIGGER_PIN  10
+#define ECHO_PIN     11
+#define MAX_DISTANCE 41
+
+NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
+Servo radarServo;
+
 int distance;
-
-Servo myServo;
+int servoDelay = 30;
 
 void setup() {
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  Serial.begin(9600);
-  myServo.attach(12);
+  Serial.begin(115200);
+  radarServo.attach(12);
+  radarServo.write(15);
 }
+
 void loop() {
-  for(int i=15;i<=165;i++){  
-  myServo.write(i);
-  delay(30);
-  distance = calculateDistance();
-  
+
+  for(int i=15; i<=165; i++){  
+  radarServo.write(i);
+  delay(servoDelay);
+
+  getDistance();
+
   Serial.print(i);
   Serial.print(",");
   Serial.print(distance);
   Serial.print(".");
   }
 
-  for(int i=165;i>15;i--){  
-  myServo.write(i);
-  delay(30);
-  distance = calculateDistance();
+  for(int i=165; i>15; i--){  
+  radarServo.write(i);
+  delay(servoDelay);
+
+  getDistance();
+
   Serial.print(i);
   Serial.print(",");
   Serial.print(distance);
@@ -36,13 +47,9 @@ void loop() {
   }
 }
 
-int calculateDistance(){ 
-  digitalWrite(trigPin, LOW); 
-  delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH); 
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-  duration = pulseIn(echoPin, HIGH);
-  distance= duration*0.034/2;
-  return distance;
+int getDistance() {
+ sonar.timer_stop();
+ distance = sonar.ping_cm();
+ if (distance == 0 || distance > 40) distance = MAX_DISTANCE;
+ return distance;
 }

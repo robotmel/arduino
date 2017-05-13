@@ -17,9 +17,9 @@ void setup() {
   
  size (1440, 810); // ***УСТАНОВКА РАЗРЕШЕНИЯ ЭКРАНА***
  smooth();
- myPort = new Serial(this,"/dev/ttyUSB0", 9600); // ***УСТАНОВКА СЕРИЙНОГО ПОРТА***
+ myPort = new Serial(this,"/dev/ttyUSB0", 115200); // ***УСТАНОВКА СЕРИЙНОГО ПОРТА***
  myPort.bufferUntil('.');
- orcFont = loadFont("OCRAExtended-30.vlw");
+ orcFont = loadFont("Ubuntu-48.vlw");
 }
 
 void draw() {
@@ -131,10 +131,10 @@ void drawText() {
   
   pushMatrix();
   if(iDistance>40) {
-  noObject = "Out of Range";
+  noObject = "отсутствует";
   }
   else {
-  noObject = "In Range";
+  noObject = "обнаружен";
   }
   fill(0,0,0);
   noStroke();
@@ -142,16 +142,16 @@ void drawText() {
   fill(98,245,31);
   textSize(25);
   
-  text("10cm",width-width*0.3854,height-height*0.0833);
-  text("20cm",width-width*0.281,height-height*0.0833);
-  text("30cm",width-width*0.177,height-height*0.0833);
-  text("40cm",width-width*0.0729,height-height*0.0833);
+  text("10см",width-width*0.3854,height-height*0.0833);
+  text("20см",width-width*0.281,height-height*0.0833);
+  text("30см",width-width*0.177,height-height*0.0833);
+  text("40см",width-width*0.0729,height-height*0.0833);
   textSize(40);
-  text("Object: " + noObject, width-width*0.875, height-height*0.0277);
-  text("Angle: " + iAngle +" °", width-width*0.48, height-height*0.0277);
-  text("Distance: ", width-width*0.26, height-height*0.0277);
+  text("Объект: " + noObject, width-width*0.875, height-height*0.0277);
+  text("Угол: " + iAngle +" °", width-width*0.48, height-height*0.0277);
+  text("Расстояние: ", width-width*0.26, height-height*0.0277);
   if(iDistance<40) {
-  text("          " + iDistance +" cm", width-width*0.225, height-height*0.0277);
+  text("                  " + iDistance +" см", width-width*0.225, height-height*0.0277);
   }
   textSize(25);
   fill(98,245,60);
