@@ -8,6 +8,7 @@ Servo hor;
 void setup() { 
   vert.attach(8);
   hor.attach(9);
+  pinMode(laser, OUTPUT);
   digitalWrite(laser, HIGH);
 }
 
